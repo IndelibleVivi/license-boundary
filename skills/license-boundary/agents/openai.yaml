@@ -1,7 +1,7 @@
 interface:
   display_name: "License Boundary"
   short_description: "Choose repository licenses from goals and rights"
-  default_prompt: "Use $license-boundary to inspect this project's permission goals and rights evidence. Recommend one best-fit license and scope in plain language, with only material alternatives. Treat the exact choice as the user's; edit only after explicit selection and file-edit authorization."
+  default_prompt: "Use $license-boundary to choose or audit this project's license from its permission goals and rights evidence. When the choice is open, recommend one best-fit license and scope with only material alternatives. When an exact license and scope are already selected, verify them rather than reopening the decision. Treat the exact choice as the user's; edit only after explicit selection and file-edit authorization."
 policy:
   products:
     - CODEX

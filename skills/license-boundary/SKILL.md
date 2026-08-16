@@ -1,6 +1,6 @@
 ---
 name: license-boundary
-description: "Choose, audit, add, or change licensing for a concrete repository from wanted permissions and available rights. Trigger for a LICENSE file, which license, open source versus source-available or no license, commercial use, resale or paid hosting, code versus docs/assets, forks, third-party or contributor rights, or forward-only relicensing. Do not trigger for routine publish, push, release, or deploy work without a licensing decision, or abstract legal questions unrelated to a concrete project."
+description: "Choose, audit, add, or change licensing for a repository from permission goals and rights evidence. Trigger for a LICENSE file, open source versus source-available/no license, commercial use, resale/paid hosting, code versus docs/assets, licensing a fork/derivative, upstream terms, contributor rights, or forward-only relicensing. Do not trigger for routine clone, fork, publish, push, release, or deploy without a licensing decision, or abstract legal questions unrelated to a concrete project."
 ---
 
 # License Boundary
@@ -93,8 +93,9 @@ identifier establishes a standard identifier and text, not OSI approval.
 
 - MIT and Apache-2.0 are permissive OSI licenses and allow commercial use and
   sale. Apache-2.0 adds an express contributor patent grant and patent-
-  termination terms and, on redistribution, requires changed-file notices and
-  preservation of applicable `NOTICE` material.
+  termination terms. Files you modify must carry prominent notices stating
+  that you changed them, and redistribution must preserve applicable `NOTICE`
+  material.
 - GPL and AGPL are OSI-approved copyleft license families, not noncommercial
   licenses; commercial use, sale, and paid hosting remain permitted. Select an
   exact version and SPDX expression, including the `-only` versus `-or-later`

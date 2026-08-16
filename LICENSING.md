@@ -17,7 +17,8 @@ functional materials, including:
 
 - `skills/license-boundary/SKILL.md` and
   `skills/license-boundary/agents/openai.yaml`;
-- `AGENTS.md`, `.gitignore`, and `VERSION`; and
+- `skills/license-boundary/NOTICE.md`;
+- `AGENTS.md`, `.github/`, `.gitignore`, and `VERSION`; and
 - any other original functional file not explicitly assigned another license
   in this document.
 
@@ -48,8 +49,9 @@ external projects do not incorporate or relicense those projects' contents.
 
 Where a file contains third-party material under a compatible or separate
 license, that material remains under its original terms. The full Sustainable
-Use License text in `LICENSE` and the linked Creative Commons legal code remain
-under their own governing terms.
+Use License text in `LICENSE`, its byte-identical distributed copy at
+`skills/license-boundary/LICENSE.txt`, and the linked Creative Commons legal
+code remain under their own governing terms.
 
 ## Separate permissions
 

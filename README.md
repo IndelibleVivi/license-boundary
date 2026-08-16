@@ -18,7 +18,7 @@ Ask Codex:
 
 ```text
 Use $skill-installer to install skills/license-boundary from
-IndelibleVivi/license-boundary at v0.1.0-rc1.
+IndelibleVivi/license-boundary at v0.1.0-rc2.
 ```
 
 Or use the system installer directly:
@@ -27,11 +27,15 @@ Or use the system installer directly:
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo IndelibleVivi/license-boundary \
   --path skills/license-boundary \
-  --ref v0.1.0-rc1
+  --ref v0.1.0-rc2
 ```
 
 The installed skill is available to Codex on the next turn. The installer
 refuses to overwrite an existing skill directory.
+
+The distributed skill folder includes the complete SUL-1.0 terms in
+`LICENSE.txt` and the project notice in `NOTICE.md`; recipients do not need the
+repository root to receive the terms governing the functional package.
 
 ## What it helps with
 

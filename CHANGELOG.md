@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-rc2 — 2026-08-17
+
+Complete distributed-artifact licensing and tighten invocation metadata.
+
+- Added a byte-identical copy of the complete SUL-1.0 terms and a project
+  notice inside the installable skill folder.
+- Added a deterministic CI check that keeps the packaged license copy equal to
+  the canonical root text.
+- Narrowed implicit routing around ordinary clone/fork work and aligned the
+  default prompt with both open-choice and already-selected-license requests.
+- Clarified Apache-2.0 modified-file notices without implying that every
+  unchanged redistribution requires one.
+
 ## 0.1.0-rc1 — 2026-08-17
 
 Initial public release candidate.
