@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0-rc3 — 2026-08-17
+
+Establish standalone-only distribution ownership.
+
+- Made this repository both the canonical authoring source and the only
+  distribution authority for the installed `license-boundary` directory.
+- Clarified that companion products may recommend a tested release but must
+  not bundle, replace, downgrade, or update the skill's installed bytes.
+- Documented the complementary boundary with Softpowers while keeping each
+  product's installation and release cadence independent.
+
 ## 0.1.0-rc2 — 2026-08-17
 
 Complete distributed-artifact licensing and tighten invocation metadata.

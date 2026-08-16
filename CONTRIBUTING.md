@@ -5,9 +5,9 @@ people with very different levels of licensing knowledge.
 
 ## Canonical source
 
-Edit the skill only in `skills/license-boundary/`. Copies distributed through
-Softpowers or another package are downstream projections and must not become a
-second authoring authority.
+Edit and distribute the skill only from `skills/license-boundary/` in this
+repository. Companion projects may recommend a tested release, but must not
+bundle a same-named installed copy or become a second distribution authority.
 
 Preserve these product boundaries:
 

@@ -18,7 +18,7 @@ Ask Codex:
 
 ```text
 Use $skill-installer to install skills/license-boundary from
-IndelibleVivi/license-boundary at v0.1.0-rc2.
+IndelibleVivi/license-boundary at v0.1.0-rc3.
 ```
 
 Or use the system installer directly:
@@ -27,7 +27,7 @@ Or use the system installer directly:
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo IndelibleVivi/license-boundary \
   --path skills/license-boundary \
-  --ref v0.1.0-rc2
+  --ref v0.1.0-rc3
 ```
 
 The installed skill is available to Codex on the next turn. The installer
@@ -81,9 +81,15 @@ depends on disputed ownership, employment or assignment terms, a difficult
 copyleft derivative-work question, commercially material interpretation of
 NonCommercial language, patent exposure, or a negotiated exception.
 
-The standalone repository is the canonical source for the skill. Softpowers
-may distribute an exact, version-pinned projection, but does not become a
-second authoring authority.
+This standalone repository is both the canonical authoring source and the only
+distribution authority for the installed `license-boundary` directory. Other
+projects may recommend a tested release, but should not bundle, replace, or
+update its installed bytes.
+
+License Boundary works well alongside Softpowers: Softpowers handles general
+repository engineering methods, while this specialist owns licensing choices,
+rights lineage, and forward-only relicensing boundaries. Install and upgrade
+the two products independently.
 
 ## Licensing
 
