@@ -15,6 +15,7 @@ EN_SVG = ROOT / "docs/architecture/license-boundary-decision-flow.svg"
 ZH_SVG = ROOT / "docs/architecture/license-boundary-decision-flow.zh-CN.svg"
 DOC_PATH = ROOT / "docs/architecture/README.md"
 SVG_ROOT_TAG = "{http://www.w3.org/2000/svg}svg"
+SVG_TEXT_TAG = "{http://www.w3.org/2000/svg}text"
 EXPECTED_FRAMES = {
     "README · landscape": (2100, 1180),
     "中文 · landscape": (2100, 1180),
@@ -58,7 +59,10 @@ for path, svg, language, title in (
         continue
     if svg_root.attrib.get("viewBox") != "0 0 2100 1180":
         fail(f"{path.name} must keep the 2100×1180 landscape viewBox")
-    if title not in svg:
+    visible_text = [
+        "".join(element.itertext()) for element in svg_root.iter(SVG_TEXT_TAG)
+    ]
+    if not any(title in text for text in visible_text):
         fail(f"{path.name} lost its visible title")
     if f"projection-language:{language}" not in svg:
         fail(f"{path.name} is missing its projection language marker")
