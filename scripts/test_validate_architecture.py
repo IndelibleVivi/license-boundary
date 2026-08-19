@@ -104,6 +104,36 @@ class ArchitectureFrameValidationTests(unittest.TestCase):
         self.assertNotEqual(0, result.returncode, result.stdout)
         self.assertIn("not well-formed XML", result.stderr)
 
+    def test_non_svg_xml_projection_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            case_root = Path(temporary_directory)
+            case_scripts = case_root / "scripts"
+            case_scripts.mkdir()
+            shutil.copy2(VALIDATOR, case_scripts / VALIDATOR.name)
+            shutil.copytree(ARCHITECTURE_DIR, case_root / "docs/architecture")
+
+            projection = (
+                case_root
+                / "docs/architecture/license-boundary-decision-flow.svg"
+            )
+            projection.write_text(
+                '<not-svg viewBox="0 0 2100 1180">'
+                "License Boundary Decision Architecture "
+                "projection-language:en"
+                "</not-svg>",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                [sys.executable, str(case_scripts / VALIDATOR.name)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+        self.assertNotEqual(0, result.returncode, result.stdout)
+        self.assertIn("must use an SVG root element", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

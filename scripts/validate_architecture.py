@@ -14,6 +14,7 @@ SOURCE_ZIP = ROOT / "docs/architecture/license-boundary-decision-flow.excalidraw
 EN_SVG = ROOT / "docs/architecture/license-boundary-decision-flow.svg"
 ZH_SVG = ROOT / "docs/architecture/license-boundary-decision-flow.zh-CN.svg"
 DOC_PATH = ROOT / "docs/architecture/README.md"
+SVG_ROOT_TAG = "{http://www.w3.org/2000/svg}svg"
 EXPECTED_FRAMES = {
     "README · landscape": (2100, 1180),
     "中文 · landscape": (2100, 1180),
@@ -51,6 +52,9 @@ for path, svg, language, title in (
         svg_root = ET.fromstring(svg)
     except ET.ParseError as exc:
         fail(f"{path.name} is not well-formed XML: {exc}")
+        continue
+    if svg_root.tag != SVG_ROOT_TAG:
+        fail(f"{path.name} must use an SVG root element")
         continue
     if svg_root.attrib.get("viewBox") != "0 0 2100 1180":
         fail(f"{path.name} must keep the 2100×1180 landscape viewBox")
