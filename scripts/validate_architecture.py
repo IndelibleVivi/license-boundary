@@ -5,9 +5,9 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-import re
 import sys
 import zipfile
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ZIP = ROOT / "docs/architecture/license-boundary-decision-flow.excalidraw.zip"
@@ -47,8 +47,12 @@ for path, svg, language, title in (
 ):
     if not svg:
         continue
-    view_box = re.search(r'\bviewBox="([^"]+)"', svg)
-    if not view_box or view_box.group(1) != "0 0 2100 1180":
+    try:
+        svg_root = ET.fromstring(svg)
+    except ET.ParseError as exc:
+        fail(f"{path.name} is not well-formed XML: {exc}")
+        continue
+    if svg_root.attrib.get("viewBox") != "0 0 2100 1180":
         fail(f"{path.name} must keep the 2100×1180 landscape viewBox")
     if title not in svg:
         fail(f"{path.name} lost its visible title")

@@ -77,6 +77,33 @@ class ArchitectureFrameValidationTests(unittest.TestCase):
         self.assertNotEqual(0, result.returncode, result.stdout)
         self.assertIn("non-empty name", result.stderr)
 
+    def test_truncated_svg_projection_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            case_root = Path(temporary_directory)
+            case_scripts = case_root / "scripts"
+            case_scripts.mkdir()
+            shutil.copy2(VALIDATOR, case_scripts / VALIDATOR.name)
+            shutil.copytree(ARCHITECTURE_DIR, case_root / "docs/architecture")
+
+            projection = (
+                case_root
+                / "docs/architecture/license-boundary-decision-flow.svg"
+            )
+            svg = projection.read_text(encoding="utf-8")
+            title_start = svg.index("License Boundary Decision Architecture")
+            title_end = svg.index("</text>", title_start) + len("</text>")
+            projection.write_text(svg[:title_end], encoding="utf-8")
+
+            result = subprocess.run(
+                [sys.executable, str(case_scripts / VALIDATOR.name)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+        self.assertNotEqual(0, result.returncode, result.stdout)
+        self.assertIn("not well-formed XML", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
