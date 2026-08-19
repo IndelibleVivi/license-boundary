@@ -1,8 +1,9 @@
 # License Boundary Repository Contract
 
-This repository is the canonical public source for the `license-boundary`
-Codex skill. Edit the skill only under `skills/license-boundary/`; downstream
-packaging copies are version-pinned projections, not parallel source.
+This repository is the canonical public source and official release channel
+for the `license-boundary` Codex skill. Edit the skill only under
+`skills/license-boundary/`. Faye-maintained companion repositories may
+recommend a tested release, but do not carry or update a same-named copy.
 
 Keep the skill low-friction for users with different levels of licensing
 knowledge. Preserve one plain-language best-fit recommendation, no more than
@@ -12,8 +13,10 @@ source,” infer ownership from repository control, or invent license text.
 
 When changing licensing claims in this repository, follow `LICENSING.md` and
 update every affected public surface consistently. Preserve contributor and
-third-party rights, stage exact paths, inspect the staged diff, and validate
-`skills/license-boundary/` before committing.
+third-party rights, stage exact paths, inspect the staged diff, and run
+`python3 scripts/validate_release.py` before committing. Run the system
+`quick_validate.py` against `skills/license-boundary/` when it is available.
 
-Do not publish or update a downstream Softpowers projection from this
-repository unless that separate repository action is explicitly in scope.
+Do not publish or update files in another repository unless that separate
+repository action is explicitly in scope. Do not merge, tag, release, or
+deploy unless the task explicitly authorizes that action.
