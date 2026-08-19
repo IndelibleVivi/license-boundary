@@ -16,6 +16,28 @@ ZH_SVG = ROOT / "docs/architecture/license-boundary-decision-flow.zh-CN.svg"
 DOC_PATH = ROOT / "docs/architecture/README.md"
 SVG_ROOT_TAG = "{http://www.w3.org/2000/svg}svg"
 SVG_TEXT_TAG = "{http://www.w3.org/2000/svg}text"
+SVG_RECT_TAG = "{http://www.w3.org/2000/svg}rect"
+SVG_PATH_TAG = "{http://www.w3.org/2000/svg}path"
+MINIMUM_PROJECTION_NODES = 6
+MINIMUM_PROJECTION_CONNECTORS = 6
+EXPECTED_PROJECTION_LABELS = {
+    "en": (
+        "PERMISSION GOALS",
+        "RIGHTS EVIDENCE",
+        "LICENSE + SCOPE",
+        "REPOSITORY LANDING",
+        "VERIFY",
+        "AUTHORITY UNRESOLVED",
+    ),
+    "zh-CN": (
+        "权限目标",
+        "权利证据",
+        "许可 + 范围",
+        "仓库级落地",
+        "验证",
+        "授权边界未确认",
+    ),
+}
 EXPECTED_FRAMES = {
     "README · landscape": (2100, 1180),
     "中文 · landscape": (2100, 1180),
@@ -98,6 +120,30 @@ for path, svg, language, title in (
     ]
     if not any(title in text for text in visible_text):
         fail(f"{path.name} lost its visible title")
+    for label in EXPECTED_PROJECTION_LABELS[language]:
+        if not any(label in text for text in visible_text):
+            fail(f"{path.name} lost representative semantic label: {label!r}")
+    visible_nodes = sum(
+        1
+        for element in svg_root.iter(SVG_RECT_TAG)
+        if not is_render_hidden(element, parents)
+    )
+    if visible_nodes < MINIMUM_PROJECTION_NODES:
+        fail(
+            f"{path.name} must keep at least {MINIMUM_PROJECTION_NODES} "
+            f"visible diagram nodes; found {visible_nodes}"
+        )
+    visible_connectors = sum(
+        1
+        for element in svg_root.iter(SVG_PATH_TAG)
+        if element.attrib.get("marker-end")
+        and not is_render_hidden(element, parents)
+    )
+    if visible_connectors < MINIMUM_PROJECTION_CONNECTORS:
+        fail(
+            f"{path.name} must keep at least {MINIMUM_PROJECTION_CONNECTORS} "
+            f"visible diagram connectors; found {visible_connectors}"
+        )
     if f"projection-language:{language}" not in svg:
         fail(f"{path.name} is missing its projection language marker")
     if "payload-type:application/vnd.excalidraw+json" in svg:
