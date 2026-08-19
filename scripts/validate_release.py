@@ -217,12 +217,15 @@ if "They do not determine the license of repositories analyzed or edited" not in
     fail("LICENSING.md must separate Skill and target-repository licensing")
 
 contributing = read("CONTRIBUTING.md")
+contributing_compact = compact(contributing)
 for contribution_guardrail in (
     "No copyright assignment or contributor",
     "inbound-equals-outbound",
     "Third-party redistribution remains subject to the applicable public license.",
+    "Redistributed copies must preserve notices required by that license.",
+    "Copies that modify covered material must identify those changes.",
 ):
-    if contribution_guardrail not in contributing:
+    if contribution_guardrail not in contributing_compact:
         fail(f"CONTRIBUTING.md lost guardrail: {contribution_guardrail}")
 
 stale_phrases = (

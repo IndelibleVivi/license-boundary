@@ -10,9 +10,10 @@ repository. Faye-maintained companion projects should point to a tested release
 rather than carry a same-named copy or act as an update channel.
 
 Third-party redistribution remains subject to the applicable public license.
-Modified or repackaged copies must preserve required notices and identify
-modifications. The project recognizes only tagged releases from the official
-repository as official License Boundary releases.
+Redistributed copies must preserve notices required by that license. Copies
+that modify covered material must identify those changes. The project
+recognizes only tagged releases from the official repository as official
+License Boundary releases.
 
 Preserve these product boundaries:
 
