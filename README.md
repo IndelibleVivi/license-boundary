@@ -1,8 +1,10 @@
 # License Boundary
 
-License Boundary is a small Codex skill for choosing, auditing, adding, or
-changing a repository license without making the user learn license vocabulary
-first.
+Practical repository licensing without the vocabulary tax.
+
+License Boundary is a small Codex skill for individual maintainers who need to
+choose, audit, add, or change repository licensing without learning license
+vocabulary first.
 
 It starts from practical outcomes—who may use the project internally, sell
 copies, charge for hosting, modify it, or redistribute it—then checks what the
@@ -18,7 +20,7 @@ Ask Codex:
 
 ```text
 Use $skill-installer to install skills/license-boundary from
-IndelibleVivi/license-boundary at v0.1.0-rc3.
+IndelibleVivi/license-boundary at v0.1.0.
 ```
 
 Or use the system installer directly:
@@ -27,7 +29,7 @@ Or use the system installer directly:
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo IndelibleVivi/license-boundary \
   --path skills/license-boundary \
-  --ref v0.1.0-rc3
+  --ref v0.1.0
 ```
 
 The installed skill is available to Codex on the next turn. The installer
@@ -35,7 +37,18 @@ refuses to overwrite an existing skill directory.
 
 The distributed skill folder includes the complete SUL-1.0 terms in
 `LICENSE.txt` and the project notice in `NOTICE.md`; recipients do not need the
-repository root to receive the terms governing the functional package.
+repository root to identify the terms and attribution governing the functional
+package.
+
+## How it works
+
+![License Boundary decision architecture: permission goals and rights evidence converge on a confirmed license and scope, followed by repository-wide landing and verification.](docs/architecture/license-boundary-decision-flow.svg)
+
+Permission goals, licensing authority, final user selection, repository-wide
+implementation, and verification remain separate boundaries.
+
+[Architecture notes and editable source](docs/architecture/) ·
+[中文横版](docs/architecture/license-boundary-decision-flow.zh-CN.svg)
 
 ## What it helps with
 
@@ -81,10 +94,19 @@ depends on disputed ownership, employment or assignment terms, a difficult
 copyleft derivative-work question, commercially material interpretation of
 NonCommercial language, patent exposure, or a negotiated exception.
 
-This standalone repository is both the canonical authoring source and the only
-distribution authority for the installed `license-boundary` directory. Other
-projects may recommend a tested release, but should not bundle, replace, or
-update its installed bytes.
+This repository is the canonical source and official release channel for the
+`license-boundary` Codex skill. Faye-maintained companion projects may
+recommend a tested release, but do not bundle or auto-update a same-named copy.
+The project treats only unmodified tagged releases from this repository as
+official License Boundary releases.
+
+Third-party redistribution of SUL-covered functional materials remains
+governed by SUL-1.0, including its noncommercial distribution,
+notice-preservation, and modified-copy requirements. Documentation and other
+separately mapped paths remain governed by the licenses identified in
+[LICENSING.md](LICENSING.md). A compliant redistribution does not become an
+official project release merely because the applicable public license permits
+it.
 
 License Boundary works well alongside Softpowers: Softpowers handles general
 repository engineering methods, while this specialist owns licensing choices,
@@ -93,15 +115,25 @@ the two products independently.
 
 ## Licensing
 
-This is a source-available / fair-code distribution, not OSI open source.
-Project-original functional materials in `skills/license-boundary/` are
-licensed under SUL-1.0. Project-original README and other documentation are
-licensed under CC BY-NC-SA 4.0. SUL-1.0 permits internal business use, but
-distributing or providing the covered functional materials to others for a fee
-or for commercial purposes is outside the public license; required notices
-must remain visible.
+This repository and the distributed Skill are source-available, not OSI open
+source. These project licenses govern License Boundary itself; they do not
+determine the license of repositories analyzed or changed with the Skill.
+
+Project-original functional materials are licensed under SUL-1.0. In practical
+terms, you may install, use, copy, and modify the functional package for
+personal, noncommercial, or internal business purposes. You may redistribute
+it free of charge for noncommercial purposes. Required license, copyright, and
+attribution notices must remain visible, and modified copies must be marked.
+
+Selling the Skill, paid redistribution, commercial white-label provision, or
+otherwise providing the covered functional materials to others for commercial
+purposes is outside the public grant and requires separate permission.
+
+Project-original README and other documentation are licensed under CC
+BY-NC-SA 4.0, which permits noncommercial sharing and adaptation with
+attribution and ShareAlike.
 
 See [LICENSING.md](LICENSING.md) for the authoritative path map,
-[LICENSE](LICENSE) for the SUL-1.0 terms, and
+[LICENSE](LICENSE) for the SUL-1.0 terms,
 [LICENSE-DOCUMENTATION.md](LICENSE-DOCUMENTATION.md) for the documentation
-license.
+license, and [NOTICE.md](NOTICE.md) for project attribution.

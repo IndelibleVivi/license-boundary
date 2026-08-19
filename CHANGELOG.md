@@ -1,13 +1,35 @@
 # Changelog
 
+## 0.1.0 — 2026-08-19
+
+Prepare the stable public release.
+
+- Clarified that this repository is the canonical source and official release
+  channel without contradicting SUL-1.0's permitted free, noncommercial
+  redistribution.
+- Separated repository attribution and scope notices from the byte-identical
+  SUL-1.0 legal text distributed with the Skill.
+- Explained that License Boundary's own licenses do not determine the license
+  of repositories analyzed or edited with it, and separated internal use from
+  paid redistribution of the Skill itself.
+- Tightened Apache-2.0 change-notice wording to redistribution of modified
+  works and aligned Codex UI metadata with the current Skill shape.
+- Added a grid-aligned Excalidraw decision architecture with English
+  landscape, Chinese landscape, and XHS portrait source frames.
+- Added deterministic release validation for legal-text parity, version pins,
+  package notices, metadata, critical behavioral guardrails, architecture
+  source recoverability, exact frame counts, duplicate and unnamed frame
+  rejection, projection consistency, and local links.
+
 ## 0.1.0-rc3 — 2026-08-17
 
-Establish standalone-only distribution ownership.
+Establish standalone official release ownership.
 
-- Made this repository both the canonical authoring source and the only
-  distribution authority for the installed `license-boundary` directory.
-- Clarified that companion products may recommend a tested release but must
-  not bundle, replace, downgrade, or update the skill's installed bytes.
+- Made this repository the canonical authoring source and official release
+  channel for the installed `license-boundary` directory.
+- Clarified that Faye-maintained companion products may recommend a tested
+  release but do not bundle, replace, downgrade, or update the Skill's
+  installed bytes.
 - Documented the complementary boundary with Softpowers while keeping each
   product's installation and release cadence independent.
 

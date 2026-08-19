@@ -5,9 +5,15 @@ people with very different levels of licensing knowledge.
 
 ## Canonical source
 
-Edit and distribute the skill only from `skills/license-boundary/` in this
-repository. Companion projects may recommend a tested release, but must not
-bundle a same-named installed copy or become a second distribution authority.
+Official releases are authored from `skills/license-boundary/` in this
+repository. Faye-maintained companion projects should point to a tested release
+rather than carry a same-named copy or act as an update channel.
+
+Third-party redistribution remains subject to the applicable public license.
+Redistributed copies must preserve notices required by that license. Copies
+that modify covered material must identify those changes. The project
+recognizes only tagged releases from the official repository as official
+License Boundary releases.
 
 Preserve these product boundaries:
 
@@ -21,6 +27,15 @@ Preserve these product boundaries:
   uncertainty instead of inventing legal conclusions.
 
 ## Validation
+
+Run the repository and architecture validators and their regression tests:
+
+```bash
+python3 scripts/validate_release.py
+python3 scripts/test_validate_release.py
+python3 scripts/validate_architecture.py
+python3 scripts/test_validate_architecture.py
+```
 
 Run the system skill validator when it is available:
 

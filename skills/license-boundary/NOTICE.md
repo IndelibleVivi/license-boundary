@@ -6,5 +6,13 @@ rights holders.
 
 Created by Faye & Cove.
 
-The complete Sustainable Use License v1.0 terms governing the project-original
-functional materials in this distributed skill are included in `LICENSE.txt`.
+Official source and release channel:
+`https://github.com/IndelibleVivi/license-boundary`
+
+The complete Sustainable Use License v1.0 terms governing the
+project-original functional materials in this package are included in
+`LICENSE.txt`. Required notices must remain visible, and modified copies must
+identify that they were modified.
+
+License Boundary's own license does not determine the license of repositories
+analyzed or edited with the Skill.

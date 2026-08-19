@@ -29,6 +29,10 @@ request or project. Common decisive questions are whether commercial use,
 internal business use, paid distribution or hosted provision, modification,
 redistribution, and reciprocal source sharing should be permitted.
 
+Do not assume that a tool's own license governs the target repository or its
+generated edits. Check whether the tool actually incorporates licensed
+templates, text, code, or assets into the result.
+
 ## Make the user's choice easy
 
 Do not require license vocabulary from the user. State the practical outcome
@@ -92,10 +96,10 @@ Use current official terms; never invent restrictions from a summary. An SPDX
 identifier establishes a standard identifier and text, not OSI approval.
 
 - MIT and Apache-2.0 are permissive OSI licenses and allow commercial use and
-  sale. Apache-2.0 adds an express contributor patent grant and patent-
-  termination terms. Files you modify must carry prominent notices stating
-  that you changed them, and redistribution must preserve applicable `NOTICE`
-  material.
+  sale. Apache-2.0 adds an express contributor patent grant and
+  patent-termination terms. When redistributing a modified Apache-2.0 work,
+  modified files must carry prominent change notices, and applicable `NOTICE`
+  material must be preserved as the license specifies.
 - GPL and AGPL are OSI-approved copyleft license families, not noncommercial
   licenses; commercial use, sale, and paid hosting remain permitted. Select an
   exact version and SPDX expression, including the `-only` versus `-or-later`
@@ -111,11 +115,11 @@ identifier establishes a standard identifier and text, not OSI approval.
   internal-business-use permission; read the complete permitted-purpose
   language instead of treating it as a synonym for “no resale.”
 - Creative Commons does not recommend CC licenses for software, but a current
-  CC license can fit copyrightable documentation and separate media. Choose the
-  specific license from the user's goals concerning attribution, commercial
-  use, adaptations, NoDerivatives, and ShareAlike; do not default to CC
-  BY-NC-SA. Under CC, NonCommercial is a defined, purpose-based standard, and
-  ShareAlike applies when Adapted Material is shared. Clearly exclude code,
+  CC license can fit copyrightable documentation and separate media. Choose
+  the specific license from the user's goals concerning attribution,
+  commercial use, adaptations, NoDerivatives, and ShareAlike; do not default
+  to CC BY-NC-SA. Under CC, NonCommercial is a defined, purpose-based standard,
+  and ShareAlike applies when Adapted Material is shared. Clearly exclude code,
   trademarks, and third-party material outside the CC grant.
 - No license is a deliberate option when no public reuse grant is intended.
 
@@ -162,12 +166,14 @@ separate contributor agreement.
 
 ## Preserve earlier grants
 
-When earlier revisions were publicly distributed or repository history already
-contains a different license, preserve those earlier terms and record the cutoff
-precisely enough to avoid ambiguity, normally by identifying the last prior-
-license commit. Do not claim that previously distributed copies lost their
-earlier permissions, and do not create a tag, release, or history rewrite solely
-to manufacture a boundary.
+When earlier revisions were publicly distributed under different terms—or
+specific recipients otherwise obtained them under those terms—preserve the
+permissions already granted and record the transition boundary precisely,
+normally by identifying the last prior-license commit. If a different license
+appears only in unpublished or access-limited history, inspect who actually
+received the revision before describing it as a public grant. Do not claim that
+previously distributed copies lost their earlier permissions, and do not create
+a tag, release, or history rewrite solely to manufacture a boundary.
 
 A licensing recommendation or file edit does not authorize a commit, push, PR,
 merge, release, deployment, commercial exception, public reply, or account
