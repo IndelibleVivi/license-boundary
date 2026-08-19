@@ -38,6 +38,20 @@ EXPECTED_PROJECTION_LABELS = {
         "授权边界未确认",
     ),
 }
+MINIMUM_SOURCE_NODES = 6
+MINIMUM_SOURCE_CONNECTORS = 6
+EXPECTED_SOURCE_LABELS = {
+    "README · landscape": EXPECTED_PROJECTION_LABELS["en"],
+    "中文 · landscape": EXPECTED_PROJECTION_LABELS["zh-CN"],
+    "XHS · portrait": (
+        "权限目标",
+        "权利证据",
+        "LICENSE + SCOPE",
+        "整个 REPO 一起落地",
+        "验证",
+        "无法确认授权边界",
+    ),
+}
 EXPECTED_FRAMES = {
     "README · landscape": (2100, 1180),
     "中文 · landscape": (2100, 1180),
@@ -208,6 +222,47 @@ else:
                     "canonical scene must contain the English landscape, "
                     f"Chinese landscape, and XHS frames; found {frames!r}"
                 )
+            if not duplicate_names and frames == EXPECTED_FRAMES:
+                frame_ids = {frame["name"]: frame.get("id") for frame in raw_frames}
+                for frame_name, required_labels in EXPECTED_SOURCE_LABELS.items():
+                    frame_elements = [
+                        element
+                        for element in elements
+                        if isinstance(element, dict)
+                        and element.get("frameId") == frame_ids[frame_name]
+                        and not element.get("isDeleted")
+                    ]
+                    frame_texts = [
+                        element.get("text")
+                        for element in frame_elements
+                        if element.get("type") == "text"
+                        and isinstance(element.get("text"), str)
+                    ]
+                    for label in required_labels:
+                        if not any(label in text for text in frame_texts):
+                            fail(
+                                f"source frame lost representative semantic label "
+                                f"{label!r}: {frame_name}"
+                            )
+                    source_nodes = sum(
+                        element.get("type") == "rectangle"
+                        for element in frame_elements
+                    )
+                    if source_nodes < MINIMUM_SOURCE_NODES:
+                        fail(
+                            f"source frame must keep at least {MINIMUM_SOURCE_NODES} "
+                            f"decision nodes: {frame_name}; found {source_nodes}"
+                        )
+                    source_connectors = sum(
+                        element.get("type") == "arrow"
+                        for element in frame_elements
+                    )
+                    if source_connectors < MINIMUM_SOURCE_CONNECTORS:
+                        fail(
+                            f"source frame must keep at least "
+                            f"{MINIMUM_SOURCE_CONNECTORS} connectors: {frame_name}; "
+                            f"found {source_connectors}"
+                        )
 
         texts = {
             element.get("text")
