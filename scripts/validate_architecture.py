@@ -46,6 +46,7 @@ def is_render_hidden(
     while current is not None:
         display = current.attrib.get("display", "").strip().lower()
         visibility = current.attrib.get("visibility", "").strip().lower()
+        opacity = current.attrib.get("opacity", "").strip().lower()
         for declaration in current.attrib.get("style", "").split(";"):
             property_name, separator, value = declaration.partition(":")
             if not separator:
@@ -56,8 +57,15 @@ def is_render_hidden(
                 display = value
             elif property_name == "visibility":
                 visibility = value
+            elif property_name == "opacity":
+                opacity = value
         if display == "none" or visibility in {"hidden", "collapse"}:
             return True
+        try:
+            if opacity and float(opacity.removesuffix("%")) <= 0:
+                return True
+        except ValueError:
+            pass
         current = parents.get(current)
     return False
 
