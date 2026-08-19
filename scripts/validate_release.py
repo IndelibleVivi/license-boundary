@@ -54,10 +54,20 @@ REQUIRED_FILES = (
     "skills/license-boundary/NOTICE.md",
     "skills/license-boundary/agents/openai.yaml",
     ".github/workflows/validate.yml",
+    "scripts/test_validate_architecture.py",
 )
 
 for required in REQUIRED_FILES:
     require_file(required)
+
+workflow = read(".github/workflows/validate.yml")
+for command in (
+    "python3 scripts/validate_release.py",
+    "python3 scripts/validate_architecture.py",
+    "python3 scripts/test_validate_architecture.py",
+):
+    if command not in workflow:
+        fail(f"validation workflow does not run required command: {command}")
 
 version = read("VERSION").strip()
 if not re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?", version):

@@ -83,18 +83,39 @@ else:
     if not isinstance(elements, list):
         fail("canonical Excalidraw scene has no element list")
     else:
-        frames = {
-            element.get("name"): (element.get("width"), element.get("height"))
+        raw_frames = [
+            element
             for element in elements
             if isinstance(element, dict)
             and element.get("type") == "frame"
-            and isinstance(element.get("name"), str)
-        }
-        if frames != EXPECTED_FRAMES:
+        ]
+        if len(raw_frames) != len(EXPECTED_FRAMES):
             fail(
-                "canonical scene must contain exactly the English landscape, "
-                f"Chinese landscape, and XHS frames; found {frames!r}"
+                "canonical scene must contain exactly "
+                f"{len(EXPECTED_FRAMES)} frames; found {len(raw_frames)}"
             )
+
+        frame_names = [frame.get("name") for frame in raw_frames]
+        if any(
+            not isinstance(name, str) or not name.strip() for name in frame_names
+        ):
+            fail("every canonical frame must have a non-empty name")
+        else:
+            duplicate_names = sorted(
+                {name for name in frame_names if frame_names.count(name) > 1}
+            )
+            if duplicate_names:
+                fail(f"canonical scene has duplicate frame names: {duplicate_names!r}")
+
+            frames = {
+                frame["name"]: (frame.get("width"), frame.get("height"))
+                for frame in raw_frames
+            }
+            if frames != EXPECTED_FRAMES:
+                fail(
+                    "canonical scene must contain the English landscape, "
+                    f"Chinese landscape, and XHS frames; found {frames!r}"
+                )
 
         texts = {
             element.get("text")

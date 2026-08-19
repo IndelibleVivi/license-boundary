@@ -27,10 +27,12 @@ Preserve these product boundaries:
 
 ## Validation
 
-Run the repository validator:
+Run the repository and architecture validators and their regression tests:
 
 ```bash
 python3 scripts/validate_release.py
+python3 scripts/validate_architecture.py
+python3 scripts/test_validate_architecture.py
 ```
 
 Run the system skill validator when it is available:

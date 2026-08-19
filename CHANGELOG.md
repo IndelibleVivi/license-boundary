@@ -18,7 +18,8 @@ Prepare the stable public release.
   landscape, Chinese landscape, and XHS portrait source frames.
 - Added deterministic release validation for legal-text parity, version pins,
   package notices, metadata, critical behavioral guardrails, architecture
-  source recoverability, projection consistency, and local links.
+  source recoverability, exact frame counts, duplicate and unnamed frame
+  rejection, projection consistency, and local links.
 
 ## 0.1.0-rc3 — 2026-08-17
 
