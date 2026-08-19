@@ -165,6 +165,39 @@ class ArchitectureFrameValidationTests(unittest.TestCase):
         self.assertNotEqual(0, result.returncode, result.stdout)
         self.assertIn("lost its visible title", result.stderr)
 
+    def test_title_hidden_by_ancestor_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            case_root = Path(temporary_directory)
+            case_scripts = case_root / "scripts"
+            case_scripts.mkdir()
+            shutil.copy2(VALIDATOR, case_scripts / VALIDATOR.name)
+            shutil.copytree(ARCHITECTURE_DIR, case_root / "docs/architecture")
+
+            projection = (
+                case_root
+                / "docs/architecture/license-boundary-decision-flow.svg"
+            )
+            projection.write_text(
+                '<svg xmlns="http://www.w3.org/2000/svg" '
+                'viewBox="0 0 2100 1180">'
+                "<!-- projection-language:en -->"
+                '<g display="none"><text>'
+                "License Boundary Decision Architecture"
+                "</text></g>"
+                "</svg>",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                [sys.executable, str(case_scripts / VALIDATOR.name)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+        self.assertNotEqual(0, result.returncode, result.stdout)
+        self.assertIn("lost its visible title", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

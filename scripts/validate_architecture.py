@@ -39,6 +39,29 @@ def read_text(path: Path) -> str:
         return ""
 
 
+def is_render_hidden(
+    element: ET.Element, parents: dict[ET.Element, ET.Element]
+) -> bool:
+    current: ET.Element | None = element
+    while current is not None:
+        display = current.attrib.get("display", "").strip().lower()
+        visibility = current.attrib.get("visibility", "").strip().lower()
+        for declaration in current.attrib.get("style", "").split(";"):
+            property_name, separator, value = declaration.partition(":")
+            if not separator:
+                continue
+            property_name = property_name.strip().lower()
+            value = value.split("!", 1)[0].strip().lower()
+            if property_name == "display":
+                display = value
+            elif property_name == "visibility":
+                visibility = value
+        if display == "none" or visibility in {"hidden", "collapse"}:
+            return True
+        current = parents.get(current)
+    return False
+
+
 en_svg = read_text(EN_SVG)
 zh_svg = read_text(ZH_SVG)
 docs = read_text(DOC_PATH)
@@ -59,8 +82,11 @@ for path, svg, language, title in (
         continue
     if svg_root.attrib.get("viewBox") != "0 0 2100 1180":
         fail(f"{path.name} must keep the 2100×1180 landscape viewBox")
+    parents = {child: parent for parent in svg_root.iter() for child in parent}
     visible_text = [
-        "".join(element.itertext()) for element in svg_root.iter(SVG_TEXT_TAG)
+        "".join(element.itertext())
+        for element in svg_root.iter(SVG_TEXT_TAG)
+        if not is_render_hidden(element, parents)
     ]
     if not any(title in text for text in visible_text):
         fail(f"{path.name} lost its visible title")
