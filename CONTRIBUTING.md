@@ -32,6 +32,7 @@ Run the repository and architecture validators and their regression tests:
 
 ```bash
 python3 scripts/validate_release.py
+python3 scripts/test_validate_release.py
 python3 scripts/validate_architecture.py
 python3 scripts/test_validate_architecture.py
 ```

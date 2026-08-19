@@ -52,6 +52,11 @@ EXPECTED_SOURCE_LABELS = {
         "无法确认授权边界",
     ),
 }
+EXPECTED_SOURCE_TITLES = {
+    "README · landscape": "License Boundary Decision Architecture",
+    "中文 · landscape": "License Boundary 决策架构",
+    "XHS · portrait": "一个 license 决定，怎样落到整个 repo？",
+}
 EXPECTED_FRAMES = {
     "README · landscape": (2100, 1180),
     "中文 · landscape": (2100, 1180),
@@ -73,6 +78,15 @@ def read_text(path: Path) -> str:
     except UnicodeDecodeError:
         fail(f"architecture file is not valid UTF-8: {path.relative_to(ROOT)}")
         return ""
+
+
+def is_active_scene_element(element: dict[str, object]) -> bool:
+    if element.get("isDeleted"):
+        return False
+    try:
+        return float(element.get("opacity", 100)) > 0
+    except (TypeError, ValueError):
+        return False
 
 
 def is_render_hidden(
@@ -230,7 +244,7 @@ else:
                         for element in elements
                         if isinstance(element, dict)
                         and element.get("frameId") == frame_ids[frame_name]
-                        and not element.get("isDeleted")
+                        and is_active_scene_element(element)
                     ]
                     frame_texts = [
                         element.get("text")
@@ -238,6 +252,8 @@ else:
                         if element.get("type") == "text"
                         and isinstance(element.get("text"), str)
                     ]
+                    if EXPECTED_SOURCE_TITLES[frame_name] not in frame_texts:
+                        fail(f"source frame lost its active title: {frame_name}")
                     for label in required_labels:
                         if not any(label in text for text in frame_texts):
                             fail(
@@ -263,21 +279,6 @@ else:
                             f"{MINIMUM_SOURCE_CONNECTORS} connectors: {frame_name}; "
                             f"found {source_connectors}"
                         )
-
-        texts = {
-            element.get("text")
-            for element in elements
-            if isinstance(element, dict)
-            and element.get("type") == "text"
-            and isinstance(element.get("text"), str)
-        }
-        for required_text in (
-            "License Boundary Decision Architecture",
-            "License Boundary 决策架构",
-            "一个 license 决定，怎样落到整个 repo？",
-        ):
-            if required_text not in texts:
-                fail(f"canonical scene lost frame title: {required_text}")
 
 if docs:
     for phrase in (

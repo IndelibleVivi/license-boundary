@@ -3,12 +3,16 @@
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 import re
 import sys
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
+CANONICAL_SUL_SHA256 = (
+    "c6d0dde0f0463c800e542d7d64237ffef37f43b17004975a558604f17b5d1af1"
+)
 ERRORS: list[str] = []
 
 
@@ -54,6 +58,7 @@ REQUIRED_FILES = (
     "skills/license-boundary/NOTICE.md",
     "skills/license-boundary/agents/openai.yaml",
     ".github/workflows/validate.yml",
+    "scripts/test_validate_release.py",
     "scripts/test_validate_architecture.py",
 )
 
@@ -63,6 +68,7 @@ for required in REQUIRED_FILES:
 workflow = read(".github/workflows/validate.yml")
 for command in (
     "python3 scripts/validate_release.py",
+    "python3 scripts/test_validate_release.py",
     "python3 scripts/validate_architecture.py",
     "python3 scripts/test_validate_architecture.py",
 ):
@@ -99,6 +105,9 @@ packaged_license = require_file("skills/license-boundary/LICENSE.txt")
 if root_license.is_file() and packaged_license.is_file():
     if root_license.read_bytes() != packaged_license.read_bytes():
         fail("LICENSE and skills/license-boundary/LICENSE.txt differ")
+    root_license_digest = hashlib.sha256(root_license.read_bytes()).hexdigest()
+    if root_license_digest != CANONICAL_SUL_SHA256:
+        fail("LICENSE must match the pinned canonical SUL-1.0 text")
 
 license_text = read("LICENSE")
 if not license_text.startswith("# Sustainable Use License\n\nVersion 1.0\n"):

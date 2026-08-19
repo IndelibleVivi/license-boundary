@@ -310,6 +310,51 @@ class ArchitectureFrameValidationTests(unittest.TestCase):
         self.assertNotEqual(0, result.returncode, result.stdout)
         self.assertIn("source frame lost representative semantic label", result.stderr)
 
+    def test_deleted_canonical_frame_titles_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            case_root = Path(temporary_directory)
+            case_scripts = case_root / "scripts"
+            case_scripts.mkdir()
+            shutil.copy2(VALIDATOR, case_scripts / VALIDATOR.name)
+            shutil.copytree(ARCHITECTURE_DIR, case_root / "docs/architecture")
+
+            source_zip = (
+                case_root
+                / "docs/architecture/license-boundary-decision-flow.excalidraw.zip"
+            )
+            with zipfile.ZipFile(source_zip) as archive:
+                scene = json.loads(archive.read(SOURCE_NAME))
+
+            frame_titles = {
+                "License Boundary Decision Architecture",
+                "License Boundary 决策架构",
+                "一个 license 决定，怎样落到整个 repo？",
+            }
+            for element in scene["elements"]:
+                if (
+                    element.get("type") == "text"
+                    and element.get("text") in frame_titles
+                ):
+                    element["isDeleted"] = True
+
+            with zipfile.ZipFile(
+                source_zip, "w", compression=zipfile.ZIP_DEFLATED
+            ) as archive:
+                archive.writestr(
+                    SOURCE_NAME,
+                    json.dumps(scene, ensure_ascii=False, separators=(",", ":")),
+                )
+
+            result = subprocess.run(
+                [sys.executable, str(case_scripts / VALIDATOR.name)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+        self.assertNotEqual(0, result.returncode, result.stdout)
+        self.assertIn("source frame lost its active title", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

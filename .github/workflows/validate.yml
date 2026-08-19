@@ -19,5 +19,6 @@ jobs:
       - name: Validate repository and distributed Skill
         run: |
           python3 scripts/validate_release.py
+          python3 scripts/test_validate_release.py
           python3 scripts/validate_architecture.py
           python3 scripts/test_validate_architecture.py

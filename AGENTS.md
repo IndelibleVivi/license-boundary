@@ -15,6 +15,7 @@ When changing licensing claims in this repository, follow `LICENSING.md` and
 update every affected public surface consistently. Preserve contributor and
 third-party rights, stage exact paths, and inspect the staged diff. Before
 committing, run `python3 scripts/validate_release.py`,
+`python3 scripts/test_validate_release.py`,
 `python3 scripts/validate_architecture.py`, and
 `python3 scripts/test_validate_architecture.py`. Run the system
 `quick_validate.py` against `skills/license-boundary/` when it is available.
