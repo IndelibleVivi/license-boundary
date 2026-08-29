@@ -1,5 +1,7 @@
 # Contributing
 
+**English** | [简体中文](CONTRIBUTING.zh-CN.md)
+
 Contributions should keep License Boundary small, concrete, and useful to
 people with very different levels of licensing knowledge.
 

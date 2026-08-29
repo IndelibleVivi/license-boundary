@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added complete Simplified Chinese paths for the README, contribution guide,
+  and decision-architecture notes, with reciprocal language navigation.
+- Kept governing license texts and the authoritative path map in their
+  canonical form while making that boundary explicit to Chinese readers.
+
 ## 0.1.0 — 2026-08-19
 
 Prepare the stable public release.

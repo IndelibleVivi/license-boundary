@@ -1,5 +1,7 @@
 # License Boundary
 
+**English** | [简体中文](README.zh-CN.md)
+
 Practical repository licensing without the vocabulary tax.
 
 License Boundary is a small Codex skill for individual maintainers who need to
@@ -48,7 +50,8 @@ Permission goals, licensing authority, final user selection, repository-wide
 implementation, and verification remain separate boundaries.
 
 [Architecture notes and editable source](docs/architecture/) ·
-[中文横版](docs/architecture/license-boundary-decision-flow.zh-CN.svg)
+[中文架构说明](docs/architecture/README.zh-CN.md) ·
+[中文横版图](docs/architecture/license-boundary-decision-flow.zh-CN.svg)
 
 ## What it helps with
 
