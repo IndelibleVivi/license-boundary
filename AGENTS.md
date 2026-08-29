@@ -20,6 +20,13 @@ committing, run `python3 scripts/validate_release.py`,
 `python3 scripts/test_validate_architecture.py`. Run the system
 `quick_validate.py` against `skills/license-boundary/` when it is available.
 
+`README.md` and `README.zh-CN.md`, `CONTRIBUTING.md` and
+`CONTRIBUTING.zh-CN.md`, and the two architecture README files are paired
+public surfaces. Keep shared behavior, commands, and boundaries aligned in both
+languages. The governing license texts and the authoritative path map remain
+the sources named in `LICENSING.md`; translations must not silently replace
+or modify them.
+
 Do not publish or update files in another repository unless that separate
 repository action is explicitly in scope. Do not merge, tag, release, or
 deploy unless the task explicitly authorizes that action.

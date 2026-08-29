@@ -45,11 +45,13 @@ def read(relative: str) -> str:
 
 REQUIRED_FILES = (
     "README.md",
+    "README.zh-CN.md",
     "LICENSE",
     "LICENSE-DOCUMENTATION.md",
     "LICENSING.md",
     "NOTICE.md",
     "CONTRIBUTING.md",
+    "CONTRIBUTING.zh-CN.md",
     "CHANGELOG.md",
     "AGENTS.md",
     "VERSION",
@@ -60,6 +62,7 @@ REQUIRED_FILES = (
     ".github/workflows/validate.yml",
     "scripts/test_validate_release.py",
     "scripts/test_validate_architecture.py",
+    "docs/architecture/README.zh-CN.md",
 )
 
 for required in REQUIRED_FILES:
@@ -99,6 +102,17 @@ for scoped_claim in (
 ):
     if scoped_claim not in readme_compact:
         fail(f"README.md lost layered redistribution scope: {scoped_claim}")
+
+for source, target in (
+    ("README.md", "README.zh-CN.md"),
+    ("README.zh-CN.md", "README.md"),
+    ("CONTRIBUTING.md", "CONTRIBUTING.zh-CN.md"),
+    ("CONTRIBUTING.zh-CN.md", "CONTRIBUTING.md"),
+    ("docs/architecture/README.md", "README.zh-CN.md"),
+    ("docs/architecture/README.zh-CN.md", "README.md"),
+):
+    if f"]({target})" not in read(source):
+        fail(f"{source} has no language link to {target}")
 
 root_license = require_file("LICENSE")
 packaged_license = require_file("skills/license-boundary/LICENSE.txt")
@@ -250,16 +264,21 @@ for relative in ("README.md", "CONTRIBUTING.md", "AGENTS.md", "CHANGELOG.md"):
 
 for relative in (
     "README.md",
+    "README.zh-CN.md",
     "LICENSING.md",
     "CONTRIBUTING.md",
+    "CONTRIBUTING.zh-CN.md",
     "LICENSE-DOCUMENTATION.md",
+    "docs/architecture/README.md",
+    "docs/architecture/README.zh-CN.md",
 ):
     text = read(relative)
     for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", text):
         if target.startswith(("http://", "https://", "mailto:", "#")):
             continue
         local_target = unquote(target.split("#", 1)[0])
-        if local_target and not (ROOT / local_target).exists():
+        document_directory = (ROOT / relative).parent
+        if local_target and not (document_directory / local_target).exists():
             fail(f"{relative} has a broken local link: {target}")
 
 changelog = read("CHANGELOG.md")

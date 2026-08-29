@@ -1,5 +1,7 @@
 # License Boundary decision architecture
 
+**English** | [简体中文](README.zh-CN.md)
+
 This diagram describes decision architecture, not runtime component architecture.
 It keeps permission goals, rights evidence, the user's final selection,
 repository-wide implementation, and verification as separate boundaries.

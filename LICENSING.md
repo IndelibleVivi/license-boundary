@@ -39,7 +39,8 @@ The project's original expression in the following documentation paths is
 licensed under
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](LICENSE-DOCUMENTATION.md):
 
-- `README.md`, `CHANGELOG.md`, and `CONTRIBUTING.md`;
+- `README.md`, `README.zh-CN.md`, `CHANGELOG.md`,
+  `CONTRIBUTING.md`, and `CONTRIBUTING.zh-CN.md`;
 - `LICENSING.md` and `LICENSE-DOCUMENTATION.md`; and
 - project-original files under `docs/`, including editable diagram sources and
   rendered projections.
